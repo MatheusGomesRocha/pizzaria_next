@@ -1,18 +1,33 @@
 .homeContainer {
-    background: darkblue;
     height: 100vh;
     width: 100%;
+    display: flex;
+    transition: 1s;
 
-    ul {
-        display: flex;
-        justify-content: space-between;
-        
-        li {
-            width: 200px;
-            height: 200px;
-            background: #fff;
-            border-radius: 50%;
-            margin-left: 100px;
+    .divider {
+        height: 100vh;
+        background: var(--orange);
+        position: absolute;
+        width: 60%;
+
+        &#moveDivToRight {
+            animation: moveDivToRight forwards;
+            animation-duration: 500ms;
+        }
+
+        &#moveDivToLeft {
+            animation: moveDivToLeft forwards;
+            animation-duration: 500ms;
         }
     }
+}
+
+
+@keyframes moveDivToRight {
+    from {margin-left: 0}
+    to {margin-left: 40%}
+}
+@keyframes moveDivToLeft {
+    from {margin-left: 40%}
+    to {margin-left: 0}
 }
