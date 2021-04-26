@@ -10,6 +10,10 @@
 
   --border: rgba(0, 0, 0, .05);
 
+  --shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
+
+  --facebook: #3b5998;
+
   --gray-50: #f7f8fa;
   --gray-100: #e6e8eb;
   --gray-200: #afb2b1;
@@ -18,18 +22,10 @@
 
   --default: #FE705F;
   --light-default: #EFABA1;
-  
 }
 
-@media(max-width: 1080px) {
-  html {
-      font-size: 93,75%;
-  }
-}
-@media(max-width: 720px) {
-  html {
-      font-size: 85,5%;
-  }
+html {
+  font-size: clamp(14px, 2vw, 18px);    // Texto responsivo, texto padrão nunca vai ser menor que 14px ou maior que 18px, e o desejado é 2/100 do tamanho da tela
 }
 
 body {
@@ -57,4 +53,9 @@ h2 {
 
 button {
   cursor: pointer;
+  transition: filter 200ms;
+}
+
+button:hover {
+  filter: brightness(0.9);
 }
