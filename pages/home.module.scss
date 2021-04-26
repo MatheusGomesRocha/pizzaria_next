@@ -6,9 +6,9 @@
 
     .divider {
         height: 100vh;
-        background: var(--orange);
+        background: var(--light-default);
         position: absolute;
-        width: 60%;
+        width: 50%;
 
         &#moveDivToRight {
             animation: moveDivToRight forwards;
@@ -25,9 +25,9 @@
 
 @keyframes moveDivToRight {
     from {margin-left: 0}
-    to {margin-left: 40%}
+    to {margin-left: 50%}
 }
 @keyframes moveDivToLeft {
-    from {margin-left: 40%}
+    from {margin-left: 50%}
     to {margin-left: 0}
 }
