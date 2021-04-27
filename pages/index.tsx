@@ -9,7 +9,9 @@ export default function Home() {
   return (
     <div className={styles.homeContainer}>
 
-      <Form register={true} />
+      <Form register={true} moveDiv={moveDiv} setMoveDiv={setMoveDiv} />
+
+      <Form login={true} moveDiv={moveDiv} setMoveDiv={setMoveDiv}/>
 
       <div className={styles.divider} id={moveDiv ? styles.moveDivToRight : styles.moveDivToLeft} onClick={() => setMoveDiv(!moveDiv)}/>
     </div>

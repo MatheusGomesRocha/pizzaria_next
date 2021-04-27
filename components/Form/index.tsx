@@ -1,5 +1,5 @@
 import { FcGoogle } from 'react-icons/fc';
-import { FaFacebook } from 'react-icons/fa';
+import { FaFacebook, FaUserAlt } from 'react-icons/fa';
 import { MdEmail } from 'react-icons/md';
 import { BsFillLockFill } from 'react-icons/bs';
 
@@ -9,17 +9,17 @@ export default function Form(props) {
     return(
         <div className={styles.form}>
         <section>
-          <h1>Vamos Começar</h1>
-          <span>Já tem uma conta? <a href="#">Login</a></span>
+          <h1>{props.register ? 'Vamos Começar' : 'Bem vindo de volta'}</h1>
+          <span>{props.register ? 'Já tem uma conta?' : 'Ainda não tem uma conta?'} <a href="#">{props.register ? 'Login' : 'Cadastre-se'}</a></span>
 
           <div>
             <button>
               <FcGoogle size={20} />
-              <span>Cadastre com Google</span>
+              <span>{props.register ? 'Cadastre com Google' : 'Faça login com Google'}</span>
             </button>
             <button>
               <FaFacebook size={20} color="#fff"/>
-              <span>Cadastre com Facebook</span>
+              <span>{props.register ? 'Cadastre com Facebook' : 'Faça login com Facebook'}</span>
             </button>
           </div>
 
@@ -33,6 +33,16 @@ export default function Form(props) {
         <form>
           <div className={styles.inputArea}>
 
+            {props.register &&
+                <div className={styles.inputLabel}>
+                    <label>Nome</label>
+                    <div className={styles.inputIcon}>
+                        <FaUserAlt size={25}/>
+                        <input type="text" placeholder="Matheus" className={styles.input}/>
+                    </div>            
+                </div>
+            }
+            
             <div className={styles.inputLabel}>
               <label>Email</label>
               <div className={styles.inputIcon}>
