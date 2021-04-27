@@ -1,10 +1,19 @@
 import styles from './home.module.scss';
-import Image from 'next/image';
 
 export default function Home() {
     return(
         <div className={styles.homeContainer}>
             <section>
+                <nav className={styles.topNavigator}>
+                    <span>Logo Aqui</span>
+
+                    <div>
+                        <a href="#">Home</a>
+                        <a href="#">Products</a>
+                        <a href="#">Contact</a>
+                    </div>
+                </nav>
+
                 <div className={styles.bottom}>
                     <div>
                         <h1>Pizza Hut</h1>
