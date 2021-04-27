@@ -16,7 +16,9 @@ export default function Home() {
 
       <Form login={true} moveDiv={moveDiv} setMoveDiv={setMoveDiv}/>
 
-      <div className={styles.divider} id={showForm == 'login' ? styles.moveDivToLeft : styles.moveDivToRight} onClick={() => setMoveDiv(!moveDiv)}/>
+      <div className={styles.divider} id={showForm == 'login' ? styles.moveDivToLeft : styles.moveDivToRight} onClick={() => setMoveDiv(!moveDiv)}>
+        <img src="/auth.svg" />
+      </div>
     </div>
   )
 }
