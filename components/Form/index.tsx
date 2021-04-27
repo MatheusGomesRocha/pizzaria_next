@@ -4,13 +4,17 @@ import { MdEmail } from 'react-icons/md';
 import { BsFillLockFill } from 'react-icons/bs';
 
 import styles from './styles.module.scss';
+import { useContext } from 'react';
+import { FormContext } from '../../contexts/FormContext';
 
 export default function Form(props) {
+    const {formToShow} = useContext(FormContext);
+
     return(
         <div className={styles.form}>
         <section>
           <h1>{props.register ? 'Vamos Começar' : 'Bem vindo de volta'}</h1>
-          <span>{props.register ? 'Já tem uma conta?' : 'Ainda não tem uma conta?'} <a href="#">{props.register ? 'Login' : 'Cadastre-se'}</a></span>
+          <span>{props.register ? 'Já tem uma conta?' : 'Ainda não tem uma conta?'} <a onClick={props.register ? () => formToShow('login') : () => formToShow('register')}> {props.register ? 'Login' : 'Cadastre-se'}</a></span>
 
           <div>
             <button>
@@ -61,17 +65,19 @@ export default function Form(props) {
 
           </div>
 
-          <div className={styles.checkboxArea}>
-              <input type="checkbox" />
-              <span>
-                Eu concordo com os
-                <strong style={{color: 'var(--default)'}}> termos de serviço </strong> 
-                e 
-                <strong style={{color: 'var(--default)'}}> política de privacidade</strong>
-              </span>
-          </div>
+          {props.register &&
+            <div className={styles.checkboxArea}>
+                <input type="checkbox" />
+                <span>
+                    Eu concordo com os
+                    <strong style={{color: 'var(--default)'}}> termos de serviço </strong> 
+                    e 
+                    <strong style={{color: 'var(--default)'}}> política de privacidade</strong>
+                </span>
+            </div>
+          }
 
-          <button type="submit">Register</button>
+          <button type="submit">{props.register ? 'Register' : 'Login'}</button>
         </form>
       </div>
     )
