@@ -1,2 +1,33 @@
 .productsContainer {
+  background: var(--gray-100);
+  height: 100vh;
+  width: calc(100% - 26.5rem);
+
+  .header {
+    width: 100%;
+    height: 3.5rem;
+    background: var(--white);
+  }
+
+  ul {
+    display: flex;
+    align-items: center;
+    background: var(--white);
+    border-top: 1px solid var(--gray-100);
+
+    li {
+      list-style: none;
+      padding: 1rem;
+      border-right: 1px solid var(--gray-100);
+      font: 600 1.2rem Candara, sans-serif;
+      color: var(--gray-800);
+      cursor: pointer;
+      transition: 200ms;
+
+      &.isClicked {
+        background: var(--default);
+        color: var(--white);
+      }
+    }
+  }
 }

@@ -8,13 +8,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <CartContextProvider>
       <FormContextProvider>
-        <div className={styles.wrapper}>
-          {/* <Cart /> */}
-
-          <main>
             <Component {...pageProps} />
-          </main>
-        </div>
       </FormContextProvider>
     </CartContextProvider>
   )
