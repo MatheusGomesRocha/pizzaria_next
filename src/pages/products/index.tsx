@@ -1,5 +1,7 @@
 import { useState } from 'react';
+
 import Cart from '../../components/Cart';
+import Header from '../../components/Header';
 import styles from './styles.module.scss';
 
 export default function Products() {
@@ -9,7 +11,7 @@ export default function Products() {
         <div className={styles.productsContainer}>
             <Cart />
             
-            <div className={styles.header} />
+            <Header screen="products" />
 
             <ul>
                 <li className={category === 'promotion' ? styles.isClicked : undefined} onClick={() => setCategory('promotion')}>Promoções</li>
