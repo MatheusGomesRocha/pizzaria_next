@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { FaUserCircle, FaMotorcycle } from 'react-icons/fa';
-import  { IoIosRestaurant } from 'react-icons/io';
-import  { RiSendPlaneLine } from 'react-icons/ri';
+import { IoIosRestaurant } from 'react-icons/io';
+import { RiSendPlaneLine } from 'react-icons/ri';
+import Image from 'next/image';
 
 import styles from './home.module.scss';
 
@@ -65,9 +66,31 @@ export default function Home() {
                     </div>
 
                 </div>
-
-             
             </section>
+
+            <main>
+                <section>
+                    <div>
+                        <div className={styles.line} />
+                        <h2>Nossas ofertas mais populares</h2>
+                        <div className={styles.line} />
+                    </div>
+
+                    <button type="button">Ver Cardápio</button>
+
+                    <Image
+                        src="/pizza_background.jpg"
+                        width={1200}
+                        height={500}
+                        objectFit="cover"
+                    />
+                </section>
+            </main>
+
+            <footer>
+                <span>© Copyright by Pizza Hut</span>
+                <span>Copy made with ❤️ by Matheus Gomes</span>
+            </footer>
         </div>
     )
 }
