@@ -1,9 +1,52 @@
 .cartContainer {
+  background: var(--white);
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  width: 26.5rem;
-  background: var(--white);
+  justify-content: space-between;
   position: absolute;
   right: 0;
+  height: 100vh;
+  width: 26.5rem;
+  padding: 2rem 0 1rem 0;
+
+  section {
+    padding: 0 1rem;
+
+    h1 {
+      text-align: center;
+    }
+
+    p {
+      font-size: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    div {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      color: var(--gray-200);
+      margin-top: 1rem;
+    }
+
+    .cupomCode {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px dashed var(--gray-200);
+      height: 2rem;
+    }
+  }
+
+  .buttonArea {
+    border-top: 1px solid var(--gray-100);
+    padding: 1rem 1rem 0 1rem;
+
+    button {
+      background: var(--default);
+      width: 100%;
+      height: 3rem;
+      border-radius: 0.5rem;
+    }
+  }
 }
