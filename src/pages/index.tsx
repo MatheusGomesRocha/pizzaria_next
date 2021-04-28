@@ -76,7 +76,7 @@ export default function Home() {
                         <div className={styles.line} />
                     </div>
 
-                    <button type="button">Ver Cardápio</button>
+                    <a href="/products" type="button">Ver Cardápio</a>
 
                     <Image
                         src="/pizza_background.jpg"

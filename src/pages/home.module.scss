@@ -193,12 +193,22 @@
         }
       }
 
-      button {
+      a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         background: var(--default);
+        color: var(--white);
+        transition: 200ms;
         border-radius: 0.5rem;
         height: 3rem;
         margin: 1rem 0;
         width: 100%;
+        cursor: pointer;
+
+        &:hover {
+          filter: brightness(0.9);
+        }
       }
 
       img {
@@ -213,6 +223,7 @@
   footer {
     background: var(--gray-800);
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 2rem;
