@@ -32,6 +32,41 @@
   }
 }
 
+.customResponse {
+  position: absolute;
+  background: red;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  width: 30%;
+  margin: 0 35%;
+  z-index: 999;
+  animation: moveResponseToBottom forwards;
+  animation-duration: 500ms;
+
+  span {
+    color: var(--white);
+    font: 600 1.3rem Candara, sans-serif;
+  }
+
+  &#error {
+    background: var(--error);
+  }
+
+  &#success {
+    background: var(--success);
+  }
+}
+
+@keyframes moveResponseToBottom {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+    top: 2rem;
+  }
+}
+
 @keyframes moveDivToRight {
   from {
     margin-left: 0;
@@ -40,6 +75,7 @@
     margin-left: 50%;
   }
 }
+
 @keyframes moveDivToLeft {
   from {
     margin-left: 50%;

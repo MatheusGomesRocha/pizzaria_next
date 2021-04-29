@@ -3,16 +3,19 @@ import { CartContextProvider } from '../contexts/CartContext'
 import { FormContextProvider } from '../contexts/FormContext'
 import '../styles/globals.scss'
 import styles from '../styles/app.module.scss';
+import { UserContextProvider } from '../contexts/UserContext';
 
 function MyApp({ Component, pageProps }) {
   return (
-    <CartContextProvider>
-      <FormContextProvider>
+    <UserContextProvider>
+      <CartContextProvider>
+        <FormContextProvider>
 
-        <Component {...pageProps} />
+          <Component {...pageProps} />
 
-      </FormContextProvider>
-    </CartContextProvider>
+        </FormContextProvider>
+      </CartContextProvider>
+    </UserContextProvider>
   )
 }
 
