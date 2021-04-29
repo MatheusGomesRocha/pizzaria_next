@@ -3,11 +3,12 @@ import { FaFacebook, FaUserAlt } from 'react-icons/fa';
 import { MdEmail } from 'react-icons/md';
 import { BsFillLockFill } from 'react-icons/bs';
 
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { UserContext } from '../../contexts/UserContext';
 import { FormContext } from '../../contexts/FormContext';
 import { api } from '../../services/api';
 import styles from './styles.module.scss';
-import { UserContext } from '../../contexts/UserContext';
+import { GetStaticProps } from 'next';
 
 export default function Form(props: any) {
     const {formToShow} = useContext(FormContext);
@@ -17,9 +18,9 @@ export default function Form(props: any) {
     const[password, setPassword] = useState('');
     const[confirmPassword, setConfirmPassword] = useState('');
 
-    const { responseApiRegister } = useContext(UserContext);
+    const { login, responseApiRegister, userLoginId } = useContext(UserContext);
     
-    function handleSubmit (event: any) {
+    function handleSubmitRegister(event: any) {
     
       api.post('registerUser', {
         name: name,
@@ -38,6 +39,21 @@ export default function Form(props: any) {
       event.preventDefault();
     }
 
+    function handleSubmitLogin() {    // Pega os dados com sucesso, porém não atribui a uma variável pois tem que usar Redux Persist
+      api.post('login', {
+        email: email,
+        password: password,
+      }).then(response => {
+        const data = response.data;;
+        if(data.error) {
+          responseApiRegister(data.error, 'error');
+        } else {
+          const result = data.result;
+          login(result.id);
+        }
+      })
+    }
+
     const handleChangeName = (event: any) => {
       setName(event.target.value);
     }
@@ -53,6 +69,12 @@ export default function Form(props: any) {
     const handleChangeConfirmPassword = (event: any) => {
       setConfirmPassword(event.target.value);
     }
+
+    // useEffect(() => {
+    //   api.get(`user/${userLoginId}`).then(response => {
+    //     console.log(response.data);
+    //   })
+    // }, [])
 
     return(
         <div className={styles.form}>
@@ -79,7 +101,7 @@ export default function Form(props: any) {
             </div>
           </section>
 
-          <form method="post" onSubmit={handleSubmit}>
+          <form method="post" onSubmit={handleSubmitLogin}>
             <div className={styles.inputArea}>
               {props.register &&
                   <div className={styles.inputLabel}>

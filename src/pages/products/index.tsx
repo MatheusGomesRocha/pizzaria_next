@@ -1,13 +1,27 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { AiFillCaretDown } from 'react-icons/ai';
 
 import Cart from '../../components/Cart';
 import Header from '../../components/Header';
 import styles from './styles.module.scss';
+import { GetStaticProps } from 'next';
+import { api } from '../../services/api';
 
+type Product = {
+    id: string;
+    img: string;
+    name: string;
+    description: string;
+    price: string;
+    time: string;
+}
 
-export default function Products() {
+type Products = {
+    products: Product[];
+}
+
+export default function Products({products}: Products) {
     const [category, setCategory] = useState('pizza');
 
     const array = [
@@ -22,6 +36,9 @@ export default function Products() {
         {id: 9, img: '/pizza_background.jpg', name: 'Mussarela', description: 'Frango desfiado, exclusiva mussarela Pizza Hut e requeijão cremoso', price: 29.90},
         {id: 10, img: '/pizza_background.jpg', name: 'Mussarela', description: 'Molho de tomate, frango desfiado temperado, milhos selecionados, tiras de requeijão e a exclusiva mussarela Pizza Hut.', price: 32.40},
     ];
+
+    
+    console.log(products);
 
     return(
         <div className={styles.productsContainer}>
@@ -40,18 +57,17 @@ export default function Products() {
 
                 <main className={styles.main}>
                     <div className={styles.arrayContainer}>
-                        {array.map(array => {
+                        {products.map(product => {
                             return(
-                                <div key={array.id}>
-                                    <Image
-                                        src={array.img}
+                                <div key={product.id}>
+                                    <img
+                                        src={`http://localhost:8000/storage/media/images/1385495953.jpg`}
                                         width={600}
                                         height={500}
-                                        objectFit="cover"
                                     />
                                     <section>
-                                        <h3>{array.name}</h3>
-                                        <p>{array.description}</p>
+                                        <h3>{product.name}</h3>
+                                        <p>{product.description}</p>
                                     </section>
 
                                     <form>
@@ -69,7 +85,7 @@ export default function Products() {
 
                                         <button type="submit">
                                             <span>Adicionar</span>
-                                            <span>R$ {array.price}</span>
+                                            <span>R$ {product.price}</span>
                                         </button>
                                     </form>
                                 </div>
@@ -80,3 +96,27 @@ export default function Products() {
         </div>  
     )
 }
+
+export const getStaticProps: GetStaticProps = async () => {
+    const { data } = await api.get('products');
+    
+    const result = await data.result;
+
+    const products = result.map((product: Product) => {
+      return {
+        id: product.id,
+        img: product.img,
+        name: product.name,
+        description: product.description,
+        price: product.price,
+        time: product.time
+      }
+    })
+
+    return {
+      props: {
+        products,
+      },
+      revalidate: 60 * 60 * 24,     // 24 horas
+    }
+  }
