@@ -21,12 +21,53 @@
       margin-top: 1.5rem;
     }
 
-    div {
+    .hasProducts {
+      .arrayItem {
+        display: grid;
+        grid-template-columns: 15% 45% 35%;
+        grid-gap: 1rem;
+        margin-top: 1.5rem;
+
+        img {
+          border-radius: 0.5rem;
+        }
+
+        div {
+          display: flex;
+          flex-direction: column;
+          gap: 0.1rem;
+
+          span {
+            color: var(--gray-500);
+
+            & + span {
+              font: 700 1.2rem;
+              color: var(--default);
+              font-weight: bold;
+            }
+          }
+        }
+
+        section {
+          display: flex;
+          margin-left: auto;
+
+          button {
+            background: red;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 0.5rem;
+          }
+        }
+      }
+    }
+
+    .deliveryBill {
       display: flex;
       justify-content: space-between;
       width: 100%;
       color: var(--gray-200);
-      margin-top: 1rem;
+      margin: 2rem 0 1rem 0;
     }
 
     .cupomCode {
