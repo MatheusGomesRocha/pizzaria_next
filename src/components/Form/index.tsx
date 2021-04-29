@@ -3,12 +3,51 @@ import { FaFacebook, FaUserAlt } from 'react-icons/fa';
 import { MdEmail } from 'react-icons/md';
 import { BsFillLockFill } from 'react-icons/bs';
 
-import styles from './styles.module.scss';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { FormContext } from '../../contexts/FormContext';
+import { api } from '../../services/api';
+import styles from './styles.module.scss';
+import { GetStaticProps } from 'next';
 
-export default function Form(props) {
+export default function Form(props: any) {
     const {formToShow} = useContext(FormContext);
+
+    const[name, setName] = useState('');
+    const[email, setEmail] = useState('');
+    const[password, setPassword] = useState('');
+
+    const[responseApi, setResponseApi] = useState('');
+    
+    function handleSubmit (event: any) {
+    
+      api.post('registerUser', {
+        name: name,
+        email: email,
+        password: password
+      }).then(response => {
+        const data = response.data;;
+        if(data.error) {
+          setResponseApi(data.error);
+        } else {
+          setResponseApi(data.result);
+        }
+      })
+
+      event.preventDefault();
+
+    }
+
+    const handleChangeName = (event: any) => {
+      setName(event.target.value);
+    }
+
+    const handleChangeEmail = (event: any) => {
+      setEmail(event.target.value);
+    }
+    
+    const handleChangePassword = (event: any) => {
+      setPassword(event.target.value);
+    }
 
     return(
         <div className={styles.form}>
@@ -34,15 +73,14 @@ export default function Form(props) {
           </div>
         </section>
 
-        <form>
+        <form method="post" onSubmit={handleSubmit}>
           <div className={styles.inputArea}>
-
             {props.register &&
                 <div className={styles.inputLabel}>
                     <label>Nome</label>
                     <div className={styles.inputIcon}>
                         <FaUserAlt size={25}/>
-                        <input type="text" placeholder="Matheus" className={styles.input}/>
+                        <input type="text" placeholder="Matheus" value={name} onChange={handleChangeName} name="name" className={styles.input}/>
                     </div>            
                 </div>
             }
@@ -51,7 +89,7 @@ export default function Form(props) {
               <label>Email</label>
               <div className={styles.inputIcon}>
                 <MdEmail size={25}/>
-                <input type="email" placeholder="user@gmail.com" className={styles.input}/>
+                <input type="email" placeholder="user@gmail.com" value={email} onChange={handleChangeEmail} name="email" className={styles.input}/>
               </div>            
             </div>
 
@@ -59,9 +97,19 @@ export default function Form(props) {
               <label>Password</label>
               <div className={styles.inputIcon}>
                 <BsFillLockFill size={25}/>
-                <input type="password" placeholder="*******" />
+                <input type="password" name="password" value={password} onChange={handleChangePassword} placeholder="*******" />
               </div>
             </div>
+
+            {props.register &&
+              <div className={styles.inputLabel}>
+                <label>Confirm Password</label>
+                <div className={styles.inputIcon}>
+                  <BsFillLockFill size={25}/>
+                  <input type="password" name="confirm_password" placeholder="*******" />
+                </div>
+              </div>
+            }
 
           </div>
 
@@ -81,4 +129,21 @@ export default function Form(props) {
         </form>
       </div>
     )
+}
+
+export const getStaticProps: GetStaticProps = async () => {
+  const response = await api.get('api/user/30');
+  const data = response.data;
+
+  const users = data.map(user => {
+    return {
+      name: user.name
+    }
+  })
+
+  return {
+    props: {
+      users,
+    },
+  }
 }
