@@ -27,7 +27,6 @@ export default function Products() {
         <div className={styles.productsContainer}>
             <Cart />
             
-            <div className={styles.scrollContainer}>
 
             <Header screen="products" />
 
@@ -60,7 +59,7 @@ export default function Products() {
                                         <div className={styles.customSelect}>
                                             <span>Pequena (4 pedaços)</span>
                                             <AiFillCaretDown size={16} color="#333" />
-                                            
+
                                             <select>
                                                 <option value="S">Pequena (4 pedaços)</option>
                                                 <option value="M">Medium (6 pedaços)</option>
@@ -78,7 +77,6 @@ export default function Products() {
                         })}
                     </div>
                 </main>
-            </div>
         </div>  
     )
 }
