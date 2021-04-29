@@ -8,7 +8,9 @@ function MyApp({ Component, pageProps }) {
   return (
     <CartContextProvider>
       <FormContextProvider>
-            <Component {...pageProps} />
+
+        <Component {...pageProps} />
+
       </FormContextProvider>
     </CartContextProvider>
   )

@@ -1,4 +1,7 @@
 .homeContainer {
+  height: 100vh;
+  overflow-y: scroll;
+
   section {
     display: flex;
     flex-direction: column;
