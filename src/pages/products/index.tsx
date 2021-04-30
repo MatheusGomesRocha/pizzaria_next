@@ -37,9 +37,6 @@ export default function Products({products}: Products) {
         {id: 10, img: '/pizza_background.jpg', name: 'Mussarela', description: 'Molho de tomate, frango desfiado temperado, milhos selecionados, tiras de requeijão e a exclusiva mussarela Pizza Hut.', price: 32.40},
     ];
 
-    
-    console.log(products);
-
     return(
         <div className={styles.productsContainer}>
             <Cart />
@@ -61,9 +58,7 @@ export default function Products({products}: Products) {
                             return(
                                 <div key={product.id}>
                                     <img
-                                        src={`http://localhost:8000/storage/media/images/1385495953.jpg`}
-                                        width={600}
-                                        height={500}
+                                        src={`http://localhost:8000/storage/media/images/${product.img}`}
                                     />
                                     <section>
                                         <h3>{product.name}</h3>
