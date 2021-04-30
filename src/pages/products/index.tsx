@@ -1,28 +1,24 @@
 import { useEffect, useState } from 'react';
-import Image from 'next/image';
 import { AiFillCaretDown } from 'react-icons/ai';
 
 import Cart from '../../components/Cart';
 import Header from '../../components/Header';
 import styles from './styles.module.scss';
-import { GetStaticProps } from 'next';
 import { api } from '../../services/api';
 
-type Product = {
-    id: string;
-    img: string;
-    name: string;
-    description: string;
-    price: string;
-    time: string;
-}
 
-type Products = {
-    products: Product[];
-}
-
-export default function Products({products}: Products) {
+export default function Products() {
     const [category, setCategory] = useState('pizza');
+
+    const [productList, setProductList] = useState([]);
+    
+    useEffect(() => {
+        api.get(`products/category=${category}`).then(response => {
+            const data = response.data;
+            setProductList(data.result);
+        });
+    }, [productList])
+
 
     const array = [
         {id: 1, img: '/pizza_background.jpg', name: 'Mussarela', description: 'Parmesão, exclusiva mussarela Pizza Hut, rodelas de tomates, orégano e alho.', price: 29.40},
@@ -53,65 +49,42 @@ export default function Products({products}: Products) {
                 </ul>
 
                 <main className={styles.main}>
-                    <div className={styles.arrayContainer}>
-                        {products.map(product => {
-                            return(
-                                <div key={product.id}>
-                                    <img
-                                        src={`http://localhost:8000/storage/media/images/${product.img}`}
-                                    />
-                                    <section>
-                                        <h3>{product.name}</h3>
-                                        <p>{product.description}</p>
-                                    </section>
+                    
+                        <div className={styles.arrayContainer}>
+                            {productList.map(product => {
+                                return(
+                                    <div key={product.id}>
+                                        <img
+                                            src={`http://localhost:8000/storage/media/images/${product.img}`}
+                                        />
+                                        <section>
+                                            <h3>{product.name}</h3>
+                                            <p>{product.description}</p>
+                                        </section>
 
-                                    <form>
-                                        <span>Escolha o tamanho</span>
-                                        <div className={styles.customSelect}>
-                                            <span>Pequena (4 pedaços)</span>
-                                            <AiFillCaretDown size={16} color="#333" />
+                                        <form>
+                                            <span>Escolha o tamanho</span>
+                                            <div className={styles.customSelect}>
+                                                <span>Pequena (4 pedaços)</span>
+                                                <AiFillCaretDown size={16} color="#333" />
 
-                                            <select>
-                                                <option value="S">Pequena (4 pedaços)</option>
-                                                <option value="M">Medium (6 pedaços)</option>
-                                                <option value="L">Large (8 pedaços)</option>
-                                            </select>
-                                        </div>
+                                                <select>
+                                                    <option value="S">Pequena (4 pedaços)</option>
+                                                    <option value="M">Medium (6 pedaços)</option>
+                                                    <option value="L">Large (8 pedaços)</option>
+                                                </select>
+                                            </div>
 
-                                        <button type="submit">
-                                            <span>Adicionar</span>
-                                            <span>R$ {product.price}</span>
-                                        </button>
-                                    </form>
-                                </div>
-                            )
-                        })}
-                    </div>
+                                            <button type="submit">
+                                                <span>Adicionar</span>
+                                                <span>R$ {product.price}</span>
+                                            </button>
+                                        </form>
+                                    </div>
+                                )
+                            })}
+                        </div>
                 </main>
         </div>  
     )
 }
-
-export const getStaticProps: GetStaticProps = async () => {
-    const { data } = await api.get('products');
-    
-    const result = await data.result;
-
-    const products = result.map((product: Product) => {
-      return {
-        id: product.id,
-        img: product.img,
-        name: product.name,
-        description: product.description,
-        price: product.price,
-        time: product.time
-      }
-    })
-
-    return {
-      props: {
-        products,
-      },
-      revalidate: 60 * 60 * 24,     // 24 horas
-    }
-  }
